@@ -19,6 +19,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/varnishview',
+                            'src/main/res/layouts',
+                            'src/main/res'
+                    ]
+        }
+    }
 }
 
 dependencies {
