@@ -1,0 +1,224 @@
+package com.rz.varnishview.introviewpager;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+
+/**
+ * Created by Rz Rasel on 2017-12-17.
+ */
+/*
+String string = "#FFFF0000";
+int color = Integer.parseInt(string.replaceFirst("^#",""), 16);
+*/
+public class PagerSkipNextButton extends RelativeLayout {
+    private String btnTextSkip = "";
+    private int btnBorderStyleSkip;
+    private int btnTextColorSkip = Color.parseColor("#000000");
+    private int btnTextSizeSkip = 2;
+
+    private String btnTextNext = "";
+    private int btnBorderStyleNext;
+    private int btnTextColorNext = Color.parseColor("#000000");
+    private int btnTextSizeNext = 2;
+
+    private String btnTextGo = "";
+    private int btnBorderStyleGo;
+    private int btnTextColorGo = Color.parseColor("#000000");
+    private int btnTextSizeGo = 2;
+    private Button sysBtnPagerViewSkip = null;
+    private Button sysBtnPagerViewNext = null;
+    private Button sysBtnPagerViewGo = null;
+
+
+    private int drawableRes;
+    private Drawable drawable = null;
+    //@android:style/Widget.Button
+    //int DEF_STYLE = R.attr.borderlessButtonStyle;
+    int DEF_STYLE = android.R.style.Widget_Material_ButtonBar;
+
+    public PagerSkipNextButton(Context context) {
+        super(context);
+        init(null, 0, 0);
+    }
+
+    public PagerSkipNextButton(Context argContext, AttributeSet argAttrs) {
+        super(argContext, argAttrs);
+        init(argAttrs, 0, 0);
+    }
+
+    public PagerSkipNextButton(Context argContext, AttributeSet argAttrs, int argDefStyleAttr) {
+        super(argContext, argAttrs, argDefStyleAttr);
+        init(argAttrs, argDefStyleAttr, 0);
+    }
+
+    @TargetApi(21)
+    public PagerSkipNextButton(Context argContext, AttributeSet argAttrs, int argDefStyleAttr, int argDefStyleRes) {
+        super(argContext, argAttrs, argDefStyleAttr, argDefStyleRes);
+        init(argAttrs, argDefStyleAttr, argDefStyleRes);
+    }
+
+    private void init(AttributeSet argAttrs, int argDefStyleAttr, int argDefStyleRes) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(argAttrs, R.styleable.ViewPagerSkipNext, argDefStyleAttr, argDefStyleRes);
+        btnTextSkip = typedArray.getString(R.styleable.ViewPagerSkipNext_btnTextSkip);
+        btnBorderStyleSkip = typedArray.getResourceId(R.styleable.ViewPagerSkipNext_btnBorderStyleSkip, 0);
+        btnTextColorSkip = typedArray.getColor(R.styleable.ViewPagerSkipNext_btnTextColorSkip, Color.BLACK);
+        btnTextSizeSkip = typedArray.getDimensionPixelSize(R.styleable.ViewPagerSkipNext_btnTextSizeSkip, btnTextSizeSkip);
+
+        btnTextNext = typedArray.getString(R.styleable.ViewPagerSkipNext_btnTextNext);
+        btnBorderStyleNext = typedArray.getResourceId(R.styleable.ViewPagerSkipNext_btnBorderStyleNext, 0);
+        btnTextColorNext = typedArray.getColor(R.styleable.ViewPagerSkipNext_btnTextColorNext, Color.BLACK);
+        btnTextSizeNext = typedArray.getDimensionPixelSize(R.styleable.ViewPagerSkipNext_btnTextSizeNext, btnTextSizeNext);
+
+        btnTextGo = typedArray.getString(R.styleable.ViewPagerSkipNext_btnTextGo);
+        btnBorderStyleGo = typedArray.getResourceId(R.styleable.ViewPagerSkipNext_btnBorderStyleGo, 0);
+        btnTextColorGo = typedArray.getColor(R.styleable.ViewPagerSkipNext_btnTextColorGo, Color.BLACK);
+        btnTextSizeGo = typedArray.getDimensionPixelSize(R.styleable.ViewPagerSkipNext_btnTextSizeGo, btnTextSizeNext);
+
+
+
+        /*btnTheme = typedArray.getResourceId(R.styleable.MultiButton_btnStyle, DEF_STYLE);
+        drawableRes = typedArray.getResourceId(R.styleable.MultiButton_myicon, 0);
+        drawable = getResources().getDrawable(drawableRes);*/
+        typedArray.recycle();
+        //private ImageView createItem()
+        sysBtnPagerViewSkip = onCreateButton(R.id.sysBtnPagerViewSkip, btnBorderStyleSkip, RelativeLayout.ALIGN_PARENT_LEFT);
+        sysBtnPagerViewSkip.setTextColor(btnTextColorSkip);
+        sysBtnPagerViewSkip.setText(btnTextSkip);
+        sysBtnPagerViewSkip.setTextSize(btnTextSizeSkip);
+        addView(sysBtnPagerViewSkip);
+        //onSetProperty(sysBtnPagerViewSkip);
+        sysBtnPagerViewNext = onCreateButton(R.id.sysBtnPagerViewNext, btnBorderStyleNext, RelativeLayout.ALIGN_PARENT_RIGHT);
+        sysBtnPagerViewNext.setTextColor(btnTextColorNext);
+        sysBtnPagerViewNext.setText(btnTextNext);
+        sysBtnPagerViewNext.setTextSize(btnTextSizeNext);
+        addView(sysBtnPagerViewNext);
+        //reflectParametersInView();
+        sysBtnPagerViewGo = onCreateButton(R.id.sysBtnPagerViewGo, btnBorderStyleGo, RelativeLayout.CENTER_IN_PARENT);
+        sysBtnPagerViewGo.setTextColor(btnTextColorGo);
+        sysBtnPagerViewGo.setText(btnTextGo);
+        sysBtnPagerViewGo.setTextSize(btnTextSizeGo);
+        addView(sysBtnPagerViewGo);
+    }
+
+    private void reflectParametersInView() {
+        removeAllViews();
+        /*ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );*/
+        /*Button firstBtn = new Button(getContext(), null, btnTheme);
+        //RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)index.getLayoutParams();
+        RelativeLayout.LayoutParams layoutParams = null;
+        layoutParams = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        firstBtn.setLayoutParams(layoutParams);
+        firstBtn.setText("first");
+        addView(firstBtn);
+        Button secondBtn = new Button(getContext(), null, btnTheme);
+        layoutParams = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        secondBtn.setLayoutParams(layoutParams);
+        secondBtn.setText("second");
+        addView(secondBtn);
+        //button.setTextAppearance(context, R.style.MyTextStyle);
+        //ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(getContext(), R.attr.borderlessButtonStyle);
+        //Button lastBtn = new Button(getContext());
+        //R.attr.btnStyle
+        Button lastBtn = new Button(getContext(), null, btnTheme);
+        layoutParams = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lastBtn.setLayoutParams(layoutParams);
+        lastBtn.setText("last");
+        lastBtn.setCompoundDrawablesWithIntrinsicBounds(drawable, null, drawable, null);
+        //lastBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+        addView(lastBtn);
+        //Button b = new Button(new ContextThemeWrapper(this, R.attr.borderlessButtonStyle), null, 0);
+        //style="?android:attr/borderlessButtonStyle"
+        //how to set button borderlessButtonStyle programmatically in android
+        //https://stackoverflow.com/questions/11422220/android-how-to-programmatically-set-the-button-style-in-a-linearlayout
+
+        //https://gist.github.com/romannurik/7026222
+        //R.id.your_button_id*/
+    }
+
+    private void onSetProperty(Button argBtn) {
+        argBtn.setText(btnTextSkip);
+        //argBtn.setGravity(Gravity.CENTER_HORIZONTAL);
+
+        /*RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) argBtn.getLayoutParams();
+        //layoutParams.bottomMargin += 20;
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        argBtn.setLayoutParams(layoutParams);*/
+    }
+
+    private Button onCreateButton(int argId, int argBorderStyle, int argAlignParent) {
+        Button retButton = null;
+        LayoutParams layoutParams = null;
+        if (argBorderStyle > 0) {
+            retButton = new Button(getContext(), null, argBorderStyle);
+        } else {
+            retButton = new Button(getContext());
+        }
+        layoutParams = new LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.addRule(argAlignParent);
+        retButton.setLayoutParams(layoutParams);
+        retButton.setId(argId);
+        retButton.setText(null);
+        return retButton;
+    }
+}
+/*
+Definition-1-three button
+- skip button - text only
+- next button (>) - image/icon only
+- go button - text only
+Definition-2
+- icon (Left, right, not)
+Definition-3
+- [x] style - borderless
+- [x] text color
+- text style Typeface.NORMAL
+- [x] text size
+- [x] text
+- [x] button id
+
+
+int ordinal = a.getInt(R.styleable.IconView_icon, 0);
+Format format = Format.fromId(a.getInt(R.styleable.IconView_icon, 0)));
+private enum Format {
+    enum_name_one(0), enum_name_n(666);
+    int id;
+
+    Format(int id) {
+        this.id = id;
+    }
+
+    static Format fromId(int id) {
+        for (Format f : values()) {
+            if (f.id == id) return f;
+        }
+        throw new IllegalArgumentException();
+    }
+}
+
+https://gist.github.com/laaptu/ee2d30c46e14743172cb
+*/
