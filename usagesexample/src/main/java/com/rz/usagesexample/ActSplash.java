@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.rz.varnishview.introviewpager.AdapterViewPager;
 import com.rz.varnishview.introviewpager.ModelRowViewHolder;
 import com.rz.varnishview.introviewpager.OnIndicatorEventListenerHandler;
+import com.rz.varnishview.introviewpager.PagerSkipNextButton;
 import com.rz.varnishview.introviewpager.ViewPagerIndicator;
 
 import java.util.ArrayList;
@@ -42,7 +43,6 @@ public class ActSplash extends AppCompatActivity {
         sysViewPagerIntroduction = (ViewPager) findViewById(R.id.sysViewPagerIntroduction);
         adapterViewPager = new AdapterViewPager(context, R.layout.pager_item, adapterListItems);
         sysViewPagerIntroduction.setAdapter(adapterViewPager);
-        sysViewPagerIntroduction.setCurrentItem(0);
         adapterViewPager.onSetEventListenerHandler(new OnIndicatorEventListenerHandler() {
             @Override
             public boolean onIsViewFromObject(View argView, Object argObject) {
@@ -64,9 +64,13 @@ public class ActSplash extends AppCompatActivity {
                 }
             }
         }, fieldsRowViewListItems);
+        sysViewPagerIntroduction.setCurrentItem(0);
         ViewPagerIndicator sysViewPagerIndicator = (ViewPagerIndicator) findViewById(R.id.sysViewPagerIndicator);
         sysViewPagerIndicator.setupWithViewPager(sysViewPagerIntroduction);
         sysViewPagerIndicator.addOnPageChangeListener(onPageChangeListener);
+        PagerSkipNextButton sysViewPagerSkipNextButton = (PagerSkipNextButton) findViewById(R.id.sysViewPagerSkipNextButton);
+        sysViewPagerSkipNextButton.setupWithViewPager(sysViewPagerIntroduction);
+        sysViewPagerSkipNextButton.addOnPageChangeListener(onPageChangeListener);
     }
 
     private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -77,7 +81,7 @@ public class ActSplash extends AppCompatActivity {
 
         @Override
         public void onPageSelected(final int position) {
-            Toast.makeText(context, "Page selected " + position, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Page selected " + position, Toast.LENGTH_SHORT).show();
         }
 
         @Override

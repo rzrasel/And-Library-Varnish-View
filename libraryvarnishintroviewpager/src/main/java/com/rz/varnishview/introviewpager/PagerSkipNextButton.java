@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,6 +20,8 @@ String string = "#FFFF0000";
 int color = Integer.parseInt(string.replaceFirst("^#",""), 16);
 */
 public class PagerSkipNextButton extends RelativeLayout {
+    private int totalViewPagerPage = 0;
+    private int currentViewPagerSelectedPage = 0;
     private String btnTextSkip = "";
     private int btnBorderStyleSkip;
     private int btnTextColorSkip = Color.parseColor("#000000");
@@ -100,10 +104,11 @@ public class PagerSkipNextButton extends RelativeLayout {
         sysBtnPagerViewNext.setTextSize(btnTextSizeNext);
         addView(sysBtnPagerViewNext);
         //reflectParametersInView();
-        sysBtnPagerViewGo = onCreateButton(R.id.sysBtnPagerViewGo, btnBorderStyleGo, RelativeLayout.CENTER_IN_PARENT);
+        sysBtnPagerViewGo = onCreateButton(R.id.sysBtnPagerViewGo, btnBorderStyleGo, RelativeLayout.ALIGN_PARENT_RIGHT);
         sysBtnPagerViewGo.setTextColor(btnTextColorGo);
         sysBtnPagerViewGo.setText(btnTextGo);
         sysBtnPagerViewGo.setTextSize(btnTextSizeGo);
+        sysBtnPagerViewGo.setVisibility(GONE);
         addView(sysBtnPagerViewGo);
     }
 
@@ -184,6 +189,55 @@ public class PagerSkipNextButton extends RelativeLayout {
         retButton.setId(argId);
         retButton.setText(null);
         return retButton;
+    }
+
+    public void setupWithViewPager(@NonNull ViewPager argViewPager) {
+        //setPageCount(viewPager.getAdapter().getCount());
+        //viewPager.addOnPageChangeListener(new ViewPagerIndicator.OnPageChangeListener());
+        totalViewPagerPage = argViewPager.getAdapter().getCount();
+        currentViewPagerSelectedPage = argViewPager.getCurrentItem();
+        argViewPager.addOnPageChangeListener(new OnPageChangeListener());
+    }
+
+    public void addOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
+        //mListener = listener;
+    }
+
+    private void onSetButtonShowHide(int ageCurrentSelectedPage) {
+        if (ageCurrentSelectedPage >= totalViewPagerPage - 1) {
+            sysBtnPagerViewSkip.setVisibility(GONE);
+            sysBtnPagerViewNext.setVisibility(GONE);
+            sysBtnPagerViewGo.setVisibility(VISIBLE);
+        } else {
+            sysBtnPagerViewSkip.setVisibility(VISIBLE);
+            sysBtnPagerViewNext.setVisibility(VISIBLE);
+            sysBtnPagerViewGo.setVisibility(GONE);
+        }
+    }
+
+    private class OnPageChangeListener implements ViewPager.OnPageChangeListener {
+
+        @Override
+        public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
+            /*if (mListener != null) {
+                mListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }*/
+        }
+
+        @Override
+        public void onPageSelected(final int position) {
+            onSetButtonShowHide(position);
+            /*if (mListener != null) {
+                mListener.onPageSelected(position);
+            }*/
+        }
+
+        @Override
+        public void onPageScrollStateChanged(final int state) {
+            /*if (mListener != null) {
+                mListener.onPageScrollStateChanged(state);
+            }*/
+        }
     }
 }
 /*

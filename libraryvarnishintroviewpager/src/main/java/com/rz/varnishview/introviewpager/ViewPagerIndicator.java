@@ -152,8 +152,7 @@ public class ViewPagerIndicator extends LinearLayoutCompat {
         return index;
     }
 
-    private class OnPageChangeListener
-            implements ViewPager.OnPageChangeListener {
+    private class OnPageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
         public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
