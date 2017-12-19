@@ -8,7 +8,9 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
@@ -20,6 +22,8 @@ String string = "#FFFF0000";
 int color = Integer.parseInt(string.replaceFirst("^#",""), 16);
 */
 public class PagerSkipNextButton extends RelativeLayout {
+    //private OnClickListener onClickListener;
+    private ViewPager viewPagerInstruction;
     private int totalViewPagerPage = 0;
     private int currentViewPagerSelectedPage = 0;
     private String btnTextSkip = "";
@@ -110,6 +114,11 @@ public class PagerSkipNextButton extends RelativeLayout {
         sysBtnPagerViewGo.setTextSize(btnTextSizeGo);
         sysBtnPagerViewGo.setVisibility(GONE);
         addView(sysBtnPagerViewGo);
+        if (onClickListener != null) {
+            sysBtnPagerViewSkip.setOnClickListener(onClickListener);
+            sysBtnPagerViewNext.setOnClickListener(onClickListener);
+            sysBtnPagerViewGo.setOnClickListener(onClickListener);
+        }
     }
 
     private void reflectParametersInView() {
@@ -194,46 +203,113 @@ public class PagerSkipNextButton extends RelativeLayout {
     public void setupWithViewPager(@NonNull ViewPager argViewPager) {
         //setPageCount(viewPager.getAdapter().getCount());
         //viewPager.addOnPageChangeListener(new ViewPagerIndicator.OnPageChangeListener());
-        totalViewPagerPage = argViewPager.getAdapter().getCount();
-        currentViewPagerSelectedPage = argViewPager.getCurrentItem();
-        argViewPager.addOnPageChangeListener(new OnPageChangeListener());
+        viewPagerInstruction = argViewPager;
+        totalViewPagerPage = viewPagerInstruction.getAdapter().getCount();
+        currentViewPagerSelectedPage = viewPagerInstruction.getCurrentItem();
+        viewPagerInstruction.addOnPageChangeListener(new OnPageChangeListener());
     }
+
+    public void setOnClickListener(OnClickListener argOnClickListener) {
+        onClickListener = argOnClickListener;
+        if (onClickListener != null) {
+            sysBtnPagerViewSkip.setOnClickListener(onClickListener);
+            sysBtnPagerViewNext.setOnClickListener(onClickListener);
+            sysBtnPagerViewGo.setOnClickListener(onClickListener);
+        }
+    }
+
+    OnClickListener onClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View argView) {
+            int btnId = argView.getId();
+            /*switch (btnId) {
+                case R.id.sysBtnPagerViewSkip:
+                    break;
+            }*/
+            if (btnId == R.id.sysBtnPagerViewSkip) {
+            } else if (btnId == R.id.sysBtnPagerViewNext) {
+                currentViewPagerSelectedPage++;
+                onSetButtonShowHide(currentViewPagerSelectedPage);
+                viewPagerInstruction.setCurrentItem(currentViewPagerSelectedPage);
+            }
+        }
+    };
 
     public void addOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
         //mListener = listener;
     }
 
     private void onSetButtonShowHide(int ageCurrentSelectedPage) {
-        if (ageCurrentSelectedPage >= totalViewPagerPage - 1) {
+        currentViewPagerSelectedPage = ageCurrentSelectedPage;
+        if (currentViewPagerSelectedPage >= totalViewPagerPage - 1) {
+            if (sysBtnPagerViewSkip.getVisibility() != View.GONE) {
+                onSetTransition(sysBtnPagerViewSkip, 1000, 50, 250);
+            }
+            if (sysBtnPagerViewNext.getVisibility() != View.GONE) {
+                onSetTransition(sysBtnPagerViewNext, 1000, 50, 250);
+            }
+            if (sysBtnPagerViewNext.getVisibility() != View.VISIBLE) {
+                onSetTransition(sysBtnPagerViewGo, 250, -50, -250);
+            }
             sysBtnPagerViewSkip.setVisibility(GONE);
             sysBtnPagerViewNext.setVisibility(GONE);
             sysBtnPagerViewGo.setVisibility(VISIBLE);
+            //onSetTransition(sysBtnPagerViewGo, 1000, 50, 250);
         } else {
+            if (sysBtnPagerViewSkip.getVisibility() != View.VISIBLE) {
+                onSetTransition(sysBtnPagerViewSkip, 250, -50, -250);
+            }
+            if (sysBtnPagerViewNext.getVisibility() != View.VISIBLE) {
+                onSetTransition(sysBtnPagerViewNext, 250, -50, -250);
+            }
+            if (sysBtnPagerViewNext.getVisibility() != View.GONE && sysBtnPagerViewNext.getVisibility() != View.VISIBLE) {
+                onSetTransition(sysBtnPagerViewGo, 1000, 50, 250);
+            }
             sysBtnPagerViewSkip.setVisibility(VISIBLE);
             sysBtnPagerViewNext.setVisibility(VISIBLE);
             sysBtnPagerViewGo.setVisibility(GONE);
         }
     }
 
+    private void onSetTransition(View argView, int argDuration, int argAmountToMoveRight, int argAmountToMoveDown) {
+        int fromXDelta = 0, toXDelta = 0;
+        int fromYDelta = 0, toYDelta = 0;
+        fromXDelta = -1 * argAmountToMoveRight;
+        if (argAmountToMoveRight >= 0) {
+            fromXDelta = 0;
+            toXDelta = argAmountToMoveRight;
+        }
+        fromYDelta = -1 * argAmountToMoveDown;
+        if (argAmountToMoveDown >= 0) {
+            fromYDelta = 0;
+            toYDelta = argAmountToMoveDown;
+        }
+        TranslateAnimation translateAnimation;
+        translateAnimation = new TranslateAnimation(fromXDelta, toXDelta, fromYDelta, toYDelta);
+        translateAnimation.setDuration(argDuration);
+        translateAnimation.setFillAfter(false);
+        argView.startAnimation(translateAnimation);
+    }
+
     private class OnPageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
-        public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
+        public void onPageScrolled(int argPosition, float argPositionOffset, int argPositionOffsetPixels) {
             /*if (mListener != null) {
                 mListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
             }*/
         }
 
         @Override
-        public void onPageSelected(final int position) {
-            onSetButtonShowHide(position);
+        public void onPageSelected(int agrPosition) {
+            onSetButtonShowHide(agrPosition);
             /*if (mListener != null) {
                 mListener.onPageSelected(position);
             }*/
         }
 
         @Override
-        public void onPageScrollStateChanged(final int state) {
+        public void onPageScrollStateChanged(int argState) {
             /*if (mListener != null) {
                 mListener.onPageScrollStateChanged(state);
             }*/

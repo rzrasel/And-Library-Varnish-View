@@ -10,12 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:listitem="@layout/lay_pager_item_webview" />
+        tools:listitem="@layout/lay_pager_item_textview" />
 
     <RelativeLayout
         android:id="@+id/viewPagerIndicator"
         android:layout_width="match_parent"
-        android:background="#ffffff"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
