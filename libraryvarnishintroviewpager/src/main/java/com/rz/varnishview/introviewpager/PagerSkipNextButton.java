@@ -194,10 +194,16 @@ public class PagerSkipNextButton extends RelativeLayout {
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
         layoutParams.addRule(argAlignParent);
+        //layoutParams.setPadding(left, top, right, bottom);
         retButton.setLayoutParams(layoutParams);
         retButton.setId(argId);
         retButton.setText(null);
+        retButton.setPadding(48, 24, 48, 24);
+        //retButton.setBackgroundColor(Color.parseColor("#ff0000"));
+        retButton.setBackgroundResource(R.drawable.button_border);
         return retButton;
+        //https://stackoverflow.com/questions/10779115/how-to-set-padding-or-margin-to-linear-layout
+        //https://stackoverflow.com/questions/9685658/add-padding-on-view-programmatically
     }
 
     public void setupWithViewPager(@NonNull ViewPager argViewPager) {
