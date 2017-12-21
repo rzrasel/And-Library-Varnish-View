@@ -1,4 +1,4 @@
-package usagesexample.rz.com.libraryvarnishspinallistdrawer;
+package com.rz.varnishview.spinallistdrawer;
 
 import org.junit.Test;
 

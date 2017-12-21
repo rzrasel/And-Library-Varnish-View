@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndLibraryVarnishView-201712.0.1.iml" filepath="$PROJECT_DIR$/AndLibraryVarnishView-201712.0.1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libraryvarnishview/libraryvarnishview.iml" filepath="$PROJECT_DIR$/libraryvarnishview/libraryvarnishview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/usagesexample/usagesexample.iml" filepath="$PROJECT_DIR$/usagesexample/usagesexample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndLibraryVarnishViewSpinalListDrawer-201712.0.1.iml" filepath="$PROJECT_DIR$/AndLibraryVarnishViewSpinalListDrawer-201712.0.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appusagesexample/appusagesexample.iml" filepath="$PROJECT_DIR$/appusagesexample/appusagesexample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraryvarnishspinallistdrawer/libraryvarnishspinallistdrawer.iml" filepath="$PROJECT_DIR$/libraryvarnishspinallistdrawer/libraryvarnishspinallistdrawer.iml" />
     </modules>
   </component>
 </project>

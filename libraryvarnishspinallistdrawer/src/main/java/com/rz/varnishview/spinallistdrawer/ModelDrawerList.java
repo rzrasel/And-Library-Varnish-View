@@ -1,4 +1,4 @@
-package com.rz.usagesexample;
+package com.rz.varnishview.spinallistdrawer;
 
 /**
  * Created by Rz Rasel on 2017-12-21.

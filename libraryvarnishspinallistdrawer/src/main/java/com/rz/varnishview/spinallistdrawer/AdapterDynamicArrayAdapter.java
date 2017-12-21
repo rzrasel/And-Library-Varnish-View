@@ -1,4 +1,4 @@
-package com.rz.usagesexample;
+package com.rz.varnishview.spinallistdrawer;
 
 import android.content.Context;
 import android.view.LayoutInflater;
