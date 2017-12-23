@@ -64,6 +64,7 @@ public class SpinalListDrawerDraw {
         spinalDrawerList = argSpinalDrawerList;
         return this;
     }
+
     public SpinalListDrawerDraw setMainContLinearLayout(LinearLayout argLinearLayoutMainContainerView) {
         this.linearLayoutMainContainerView = argLinearLayoutMainContainerView;
         return this;
@@ -265,6 +266,9 @@ public class SpinalListDrawerDraw {
                 adapterDynamicArray.notifyDataSetChanged();
             }
         }*/
+    }
+
+    public class OnSlidingPushActivity {
     }
 }
 /*

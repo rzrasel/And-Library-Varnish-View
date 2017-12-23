@@ -47,7 +47,7 @@ public class ActSplash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_splash);
+        setContentView(R.layout.act_drawer_two);
         //|------------------------------------------------------------|
         activity = this;
         context = this;
@@ -266,5 +266,7 @@ public class ActSplash extends AppCompatActivity {
         sysDrawerList.setItemChecked(position, true);
         sysDrawerLayout.closeDrawer(sysIdDrawerContainer);
     }
+
+    //|------------------------------------------------------------|
     //|------------------------------------------------------------|
 }
