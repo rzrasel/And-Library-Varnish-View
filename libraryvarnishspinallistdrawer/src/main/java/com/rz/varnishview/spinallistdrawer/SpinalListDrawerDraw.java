@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -30,6 +31,7 @@ public class SpinalListDrawerDraw {
     private RelativeLayout spinalDrawerContainerLayout;
     private ListView spinalDrawerContainerView;
     private ListView spinalDrawerList;
+    private LinearLayout linearLayoutMainContainerView;
 
     //|------------------------------------------------------------|
     public SpinalListDrawerDraw(Activity argActivity, Context argContext) {
@@ -60,6 +62,10 @@ public class SpinalListDrawerDraw {
 
     public SpinalListDrawerDraw setDrawerListView(ListView argSpinalDrawerList) {
         spinalDrawerList = argSpinalDrawerList;
+        return this;
+    }
+    public SpinalListDrawerDraw setMainContLinearLayout(LinearLayout argLinearLayoutMainContainerView) {
+        this.linearLayoutMainContainerView = argLinearLayoutMainContainerView;
         return this;
     }
 
@@ -172,12 +178,25 @@ public class SpinalListDrawerDraw {
                 public void onDrawerClosed(View view) {
                     //Put your code here
                     activity.invalidateOptionsMenu();
+                    //supportInvalidateOptionsMenu();
                 }
 
                 /* Called when a drawer is opened */
                 public void onDrawerOpened(View drawerView) {
                     //Put your code here
                     activity.invalidateOptionsMenu();
+                }
+
+                @Override
+                public void onDrawerSlide(View argDrawerView, float argSlideOffset) {
+                    super.onDrawerSlide(argDrawerView, argSlideOffset);
+                    /*mainView.setTranslationX(slideOffset * drawerView.getWidth());
+                    mDrawerLayout.bringChildToFront(drawerView);
+                    mDrawerLayout.requestLayout();*/
+                    //
+                    linearLayoutMainContainerView.setTranslationX(argSlideOffset * argDrawerView.getWidth());
+                    spinalDrawerContainerLayout.bringChildToFront(argDrawerView);
+                    spinalDrawerContainerLayout.requestLayout();
                 }
             };
             /*sysToolBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -248,3 +267,9 @@ public class SpinalListDrawerDraw {
         }*/
     }
 }
+/*
+slide activity push activity
+https://stackoverflow.com/questions/19577630/push-activity-on-the-right-when-open-drawer
+https://medium.com/@janishar.ali/navigation-drawer-android-example-8dfe38c66f59
+https://www.journaldev.com/9958/android-navigation-drawer-example-tutorial
+*/

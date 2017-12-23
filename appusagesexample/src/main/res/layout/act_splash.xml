@@ -4,7 +4,8 @@
     android:id="@+id/act_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#80000000">
+    android:background="#ffffff">
+    <!--80000000-->
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/idAppBarLayout"
@@ -38,6 +39,7 @@
         android:layout_height="match_parent">
         <!-- The main content view -->
         <LinearLayout
+            android:id="@+id/idLinLayMainContainerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -73,7 +75,8 @@
                 android:background="#00ffffff"
                 android:choiceMode="singleChoice"
                 android:divider="#e5e5e5"
-                android:dividerHeight="1dp" />
+                android:dividerHeight="1dp"
+                android:scrollbars="none" />
         </RelativeLayout>
     </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>

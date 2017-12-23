@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -67,6 +69,7 @@ public class ActSplash extends AppCompatActivity {
         sysDrawerLayout = (DrawerLayout) findViewById(R.id.sysDrawerLayout);
         sysIdDrawerContainer = (RelativeLayout) findViewById(R.id.sysIdDrawerContainer);
         //|------------------------------------------------------------|
+        LinearLayout idLinLayMainContainerView = (LinearLayout) findViewById(R.id.idLinLayMainContainerView);
         new DrawerListViewSetUp().onSetModelItems().onSetAdapter();
         //|------------------------------------------------------------|
         spinalListDrawerDraw = new SpinalListDrawerDraw(activity, context);
@@ -75,7 +78,8 @@ public class ActSplash extends AppCompatActivity {
         spinalListDrawerDraw.setToolBar(sysToolBar)
                 .setDrawerLayout(sysDrawerLayout)
                 .setDrawerContainerLayout(sysIdDrawerContainer)
-                .setDrawerListView(sysDrawerList);
+                .setDrawerListView(sysDrawerList)
+                .setMainContLinearLayout(idLinLayMainContainerView);
         onSetupSpinalToolBar.onHideActionBar()
                 .onSetActionBar()
                 .onSetTitleText("Spinal Drawer")
@@ -93,6 +97,9 @@ public class ActSplash extends AppCompatActivity {
             DisplayView(0);
         }
         //adapterLstDrawer.setSelectedPosition(0, true, colorPrimaryDark);
+        //|------------------------------------------------------------|
+        /*Intent intentRedirectWindow = new Intent(context, ActFlyOutContainerTest.class);
+        startActivity(intentRedirectWindow);*/
         //|------------------------------------------------------------|
     }
 
@@ -230,6 +237,7 @@ public class ActSplash extends AppCompatActivity {
         //fragmentEventListener;
         String toolbarTitle = "CMDSS";
         Fragment fragment = null;
+        fragment = new FragHome();
         Bundle bundle = null;
         //fragment = new FragTest();
         if (fragment != null) {
