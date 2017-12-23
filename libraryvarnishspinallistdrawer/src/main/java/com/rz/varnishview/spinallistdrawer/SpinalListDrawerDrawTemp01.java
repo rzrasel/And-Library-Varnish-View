@@ -20,7 +20,7 @@ import android.widget.RelativeLayout;
  * Created by Rasel on 2017-12-21.
  */
 
-public class SpinalListDrawerDraw {
+public class SpinalListDrawerDrawTemp01 {
     //|------------------------------------------------------------|
     private Activity activity;
     private Context context;
@@ -34,38 +34,38 @@ public class SpinalListDrawerDraw {
     private LinearLayout linearLayoutMainContainerView;
 
     //|------------------------------------------------------------|
-    public SpinalListDrawerDraw(Activity argActivity, Context argContext) {
+    public SpinalListDrawerDrawTemp01(Activity argActivity, Context argContext) {
         this.activity = argActivity;
         this.context = argContext;
     }
 
     //|------------------------------------------------------------|
-    public SpinalListDrawerDraw setToolBar(Toolbar argSpinalToolBar) {
+    public SpinalListDrawerDrawTemp01 setToolBar(Toolbar argSpinalToolBar) {
         spinalToolBar = argSpinalToolBar;
         return this;
     }
 
-    public SpinalListDrawerDraw setDrawerLayout(DrawerLayout argSpinalDrawerLayout) {
+    public SpinalListDrawerDrawTemp01 setDrawerLayout(DrawerLayout argSpinalDrawerLayout) {
         spinalDrawerLayout = argSpinalDrawerLayout;
         return this;
     }
 
-    public SpinalListDrawerDraw setDrawerContainerLayout(RelativeLayout argSpinalDrawerContainerLayout) {
+    public SpinalListDrawerDrawTemp01 setDrawerContainerLayout(RelativeLayout argSpinalDrawerContainerLayout) {
         spinalDrawerContainerLayout = argSpinalDrawerContainerLayout;
         return this;
     }
 
-    public SpinalListDrawerDraw setDrawerContainerLayout(ListView argSpinalDrawerContainerView) {
+    public SpinalListDrawerDrawTemp01 setDrawerContainerLayout(ListView argSpinalDrawerContainerView) {
         spinalDrawerContainerView = argSpinalDrawerContainerView;
         return this;
     }
 
-    public SpinalListDrawerDraw setDrawerListView(ListView argSpinalDrawerList) {
+    public SpinalListDrawerDrawTemp01 setDrawerListView(ListView argSpinalDrawerList) {
         spinalDrawerList = argSpinalDrawerList;
         return this;
     }
 
-    public SpinalListDrawerDraw setMainContLinearLayout(LinearLayout argLinearLayoutMainContainerView) {
+    public SpinalListDrawerDrawTemp01 setMainContLinearLayout(LinearLayout argLinearLayoutMainContainerView) {
         this.linearLayoutMainContainerView = argLinearLayoutMainContainerView;
         return this;
     }
@@ -272,6 +272,16 @@ public class SpinalListDrawerDraw {
     }
 }
 /*
+Legend
+SpinalLegendDrawerDraw
+Model Drawer Items
+- Abstract Class
+-- Class Name (Class.class Variable)
+-- Class Name Getter Setter
+1) ToolBar
+2) Drawer Menu Items
+3) Navigation Drawer
+4) Sliding Push Activity
 slide activity push activity
 https://stackoverflow.com/questions/19577630/push-activity-on-the-right-when-open-drawer
 https://medium.com/@janishar.ali/navigation-drawer-android-example-8dfe38c66f59

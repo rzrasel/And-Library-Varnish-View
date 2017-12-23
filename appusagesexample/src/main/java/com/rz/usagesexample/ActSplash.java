@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
@@ -24,7 +23,7 @@ import android.widget.Toast;
 
 import com.rz.varnishview.spinallistdrawer.AdapterDynamicArrayAdapter;
 import com.rz.varnishview.spinallistdrawer.ModelDrawerList;
-import com.rz.varnishview.spinallistdrawer.SpinalListDrawerDraw;
+import com.rz.varnishview.spinallistdrawer.SpinalListDrawerDrawTemp01;
 
 import java.util.ArrayList;
 
@@ -37,9 +36,9 @@ public class ActSplash extends AppCompatActivity {
     private RelativeLayout sysIdDrawerContainer;
     private ListView sysDrawerList;
 
-    private SpinalListDrawerDraw spinalListDrawerDraw;
-    private SpinalListDrawerDraw.OnSetupSpinalToolBar onSetupSpinalToolBar;
-    private SpinalListDrawerDraw.OnSetupSpinalNavDrawer onSetupSpinalNavDrawer;
+    private SpinalListDrawerDrawTemp01 spinalListDrawerDraw;
+    private SpinalListDrawerDrawTemp01.OnSetupSpinalToolBar onSetupSpinalToolBar;
+    private SpinalListDrawerDrawTemp01.OnSetupSpinalNavDrawer onSetupSpinalNavDrawer;
     //|------------------------------------------------------------|
     private AdapterDynamicArrayAdapter adapterDynamicArrayAdapter;
     private ArrayList<ModelDrawerList> modelDrawerItems = new ArrayList<ModelDrawerList>();
@@ -72,7 +71,7 @@ public class ActSplash extends AppCompatActivity {
         LinearLayout idLinLayMainContainerView = (LinearLayout) findViewById(R.id.idLinLayMainContainerView);
         new DrawerListViewSetUp().onSetModelItems().onSetAdapter();
         //|------------------------------------------------------------|
-        spinalListDrawerDraw = new SpinalListDrawerDraw(activity, context);
+        spinalListDrawerDraw = new SpinalListDrawerDrawTemp01(activity, context);
         onSetupSpinalNavDrawer = spinalListDrawerDraw.new OnSetupSpinalNavDrawer();
         onSetupSpinalToolBar = spinalListDrawerDraw.new OnSetupSpinalToolBar();
         spinalListDrawerDraw.setToolBar(sysToolBar)
