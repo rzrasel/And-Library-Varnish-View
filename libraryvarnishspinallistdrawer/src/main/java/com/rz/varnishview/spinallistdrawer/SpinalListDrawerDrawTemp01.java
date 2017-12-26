@@ -284,7 +284,7 @@ Model Drawer Items
     *) Navigation Drawer
     *) Drawer Menu Layout - Row Resource Id, Row View Model
         * Row Items
-    *) Drawer Menu Items Click Handler
+    *) Drawer Menu Items Click Handler -
 * Sliding Push Activity
     *) Sliding Push Activity
 slide activity push activity

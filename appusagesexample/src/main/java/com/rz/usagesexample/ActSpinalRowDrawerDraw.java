@@ -50,48 +50,26 @@ public class ActSpinalRowDrawerDraw extends AppCompatActivity {
         //|------------------------------------------------------------|
         ListView sysDrawerList;
         SharkArrayAdapter adapterDrawerListAdapter;
+        ArrayList<SharkModelRowViewFields> rowViewFieldListItems = new ArrayList<SharkModelRowViewFields>();
         ArrayList<SharkModelRowScope> modelDrawerListItems = new ArrayList<SharkModelRowScope>();
         sysDrawerList = (ListView) findViewById(R.id.sysDrawerList);
-        for (int count = 0; count < 40; count++) {
-            HashMap<String, String> hashMapRowIdValueItems = new HashMap();
-            String val = count + "";
-            if (count < 10) {
-                val = "0" + count;
-            }
-            hashMapRowIdValueItems.put("sysDrawerTitle", "Title-" + val);
-            hashMapRowIdValueItems.put("sysDrawerDescription", "Description-" + val);
-            modelDrawerListItems.add(SharkModelRowScope.onGetSetRow(hashMapRowIdValueItems));
-        }
-        ArrayList<SharkModelRowViewFields> rowViewFieldListItems = null;
-        rowViewFieldListItems = new ArrayList<SharkModelRowViewFields>();
-        rowViewFieldListItems.add(SharkModelRowViewFields.onGetSetModelRow(new TextView(context), "sysDrawerTitle"));
-        rowViewFieldListItems.add(SharkModelRowViewFields.onGetSetModelRow(new TextView(context), "sysDrawerDescription"));
+        HashMap<String, String> eachRowDataItems = null;
+        eachRowDataItems = new HashMap();
+        eachRowDataItems.put("sysDrawerTitle", "Title-01");
+        eachRowDataItems.put("sysDrawerDescription", "Description-01");
+        spinalRowDrawerDraw.spinalDrawerMenu.onSetItemData(eachRowDataItems);
+        eachRowDataItems = new HashMap();
+        eachRowDataItems.put("sysDrawerTitle", "Title-02");
+        eachRowDataItems.put("sysDrawerDescription", "Description-02");
+        spinalRowDrawerDraw.spinalDrawerMenu.onSetItemData(eachRowDataItems);
+        modelDrawerListItems = spinalRowDrawerDraw.spinalDrawerMenu.onGetDataList();
+        spinalRowDrawerDraw.spinalDrawerMenu.onSetRowViewField(SpinalRowDrawerDraw.FIELD_TYPE.TEXT_VIEW, "sysDrawerTitle");
+        spinalRowDrawerDraw.spinalDrawerMenu.onSetRowViewField(SpinalRowDrawerDraw.FIELD_TYPE.TEXT_VIEW, "sysDrawerDescription");
+        //rowViewFieldListItems = spinalRowDrawerDraw.spinalDrawerMenu.onGetRowViewFieldsList();
         adapterDrawerListAdapter = new SharkArrayAdapter(context, R.layout.layout_navigation_drawer_row, modelDrawerListItems);
-        adapterDrawerListAdapter.onSetRowViewFieldList(rowViewFieldListItems)
-                .onSetRowViewFieldListenerHandler(new SharkArrayAdapter.OnFieldListenerHandler() {
-                    @Override
-                    public void onSetFieldValue(ArrayList<SharkModelRowViewFields> argRowViewFieldList, Object argObject) {
-                        SharkModelRowScope itemScope = (SharkModelRowScope) argObject;
-                        //TextView rowField = null;
-                        /*if (argRowViewFieldList.size() > 0) {
-                            rowField = (TextView) argRowViewFieldList.get(0).getFieldObject();
-                            rowField.setText(item.getHashMapRowIdValueItems().get("sysDrawerTitle"));
-                            rowField = (TextView) argRowViewFieldList.get(1).getFieldObject();
-                            rowField.setText(item.getHashMapRowIdValueItems().get("sysDrawerDescription"));
-                        }*/
-                        for (SharkModelRowViewFields itemField : argRowViewFieldList) {
-                            Object object = itemField.getFieldObject();
-                            String fieldResourceId = itemField.getFieldResourceId();
-                            if (object instanceof TextView) {
-                                TextView rowField = null;
-                                rowField = (TextView) itemField.getFieldObject();
-                                rowField.setText(itemScope.getHashMapRowIdValueItems().get(fieldResourceId));
-                                System.out.println(itemField.getFieldResourceId());
-                            }
-                        }
-                    }
-                });
+        spinalRowDrawerDraw.spinalDrawerMenu.onSetAdapterListener(adapterDrawerListAdapter);
         sysDrawerList.setAdapter(adapterDrawerListAdapter);
+        spinalRowDrawerDraw.spinalDrawerMenu.onSetDrawerItemClickListener(sysDrawerList);
         //|------------------------------------------------------------|
         //|------------------------------------------------------------|
     }

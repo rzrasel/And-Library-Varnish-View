@@ -12,9 +12,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.rz.varnishview.spinallistdrawer.adapter.SharkArrayAdapter;
+import com.rz.varnishview.spinallistdrawer.adapter.SharkModelRowScope;
+import com.rz.varnishview.spinallistdrawer.adapter.SharkModelRowViewFields;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Rasel on 2017-12-26.
@@ -163,6 +170,92 @@ public class SpinalRowDrawerDraw {
         /*
         //|USAGES: SpinalRowDrawerDraw.SpinalDrawerMenu spinalDrawerMenu = spinalRowDrawerDraw.new SpinalDrawerMenu();
         */
+        private ArrayList<SharkModelRowScope> modelDrawerMenuDataItems = new ArrayList<SharkModelRowScope>();
+        ArrayList<SharkModelRowViewFields> rowViewFieldListItems = new ArrayList<SharkModelRowViewFields>();
+
+        public SpinalDrawerMenu onSetItemData(HashMap<String, String> argRowDataItems) {
+            modelDrawerMenuDataItems.add(SharkModelRowScope.onGetSetRow(argRowDataItems, (String) null, SharkModelRowScope.LISTENER_TYPE.NONE));
+            return this;
+        }
+
+        public SpinalDrawerMenu onSetItemData(HashMap<String, String> argRowDataItems, Class argListenerClass) {
+            modelDrawerMenuDataItems.add(SharkModelRowScope.onGetSetRow(argRowDataItems, argListenerClass, SharkModelRowScope.LISTENER_TYPE.CLASS));
+            return this;
+        }
+
+        public SpinalDrawerMenu onSetItemData(HashMap<String, String> argRowDataItems, String argListenerValue) {
+            modelDrawerMenuDataItems.add(SharkModelRowScope.onGetSetRow(argRowDataItems, argListenerValue, SharkModelRowScope.LISTENER_TYPE.STRING));
+            return this;
+        }
+
+        public ArrayList<SharkModelRowScope> onGetDataList() {
+            return modelDrawerMenuDataItems;
+        }
+
+        public SpinalDrawerMenu onSetRowViewField(FIELD_TYPE argFieldType, String argFieldResourceId) {
+            if (argFieldType == FIELD_TYPE.TEXT_VIEW) {
+                TextView textView = new TextView(context);
+                rowViewFieldListItems.add(SharkModelRowViewFields.onGetSetModelRow(textView, argFieldResourceId));
+            }
+            return this;
+        }
+
+        public ArrayList<SharkModelRowViewFields> onGetRowViewFieldsList() {
+            return rowViewFieldListItems;
+        }
+
+        public void onSetAdapterListener(SharkArrayAdapter argSharkArrayAdapter) {
+            argSharkArrayAdapter.onSetRowViewFieldList(rowViewFieldListItems)
+                    .onSetRowViewFieldListenerHandler(onFieldListenerHandler);
+        }
+
+
+        SharkArrayAdapter.OnFieldListenerHandler onFieldListenerHandler = new SharkArrayAdapter.OnFieldListenerHandler() {
+            @Override
+            public void onSetFieldValue(ArrayList<SharkModelRowViewFields> argRowViewFieldList, Object argObject) {
+                SharkModelRowScope itemScope = (SharkModelRowScope) argObject;
+                HashMap<String, String> hashMapRowIdValueItem = itemScope.getHashMapRowIdValueItems();
+                for (SharkModelRowViewFields itemField : argRowViewFieldList) {
+                    Object object = itemField.getFieldObject();
+                    String fieldResourceId = itemField.getFieldResourceId();
+                    if (object instanceof TextView) {
+                        TextView rowField = null;
+                        rowField = (TextView) itemField.getFieldObject();
+                        if (hashMapRowIdValueItem.containsKey(fieldResourceId)) {
+                            rowField.setText(hashMapRowIdValueItem.get(fieldResourceId));
+                        }
+                        System.out.println(itemField.getFieldResourceId());
+                    }
+                }
+            }
+        };
+
+        public void onSetDrawerItemClickListener(ListView argDrawerListView) {
+            argDrawerListView.setOnItemClickListener(new OnDrawerItemClickListener());
+        }
+
+        private class OnDrawerItemClickListener implements ListView.OnItemClickListener {
+            @Override
+            public void onItemClick(AdapterView<?> argParent, View argView, int argPosition, long argId) {
+                System.out.println("Position: " + modelDrawerMenuDataItems.get(argPosition).getHashMapRowIdValueItems().get("sysDrawerTitle"));
+            }
+        }
+    }
+
+    //|------------------------------------------------------------|
+    //|------------------------------------------------------------|
+    public enum FIELD_TYPE {
+        TEXT_VIEW("text_view"),
+        IMAGE_VIEW("image_view");
+        private String fieldType;
+
+        FIELD_TYPE(String argFieldType) {
+            this.fieldType = argFieldType;
+        }
+
+        public String getFieldType() {
+            return this.fieldType;
+        }
     }
     //|------------------------------------------------------------|
     //|------------------------------------------------------------|
