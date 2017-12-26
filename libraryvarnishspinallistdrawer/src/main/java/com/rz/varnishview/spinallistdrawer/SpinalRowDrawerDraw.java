@@ -240,6 +240,9 @@ public class SpinalRowDrawerDraw {
                 System.out.println("Position: " + modelDrawerMenuDataItems.get(argPosition).getHashMapRowIdValueItems().get("sysDrawerTitle"));
             }
         }
+
+        private void DisplayView(int position) {
+        }
     }
 
     //|------------------------------------------------------------|
