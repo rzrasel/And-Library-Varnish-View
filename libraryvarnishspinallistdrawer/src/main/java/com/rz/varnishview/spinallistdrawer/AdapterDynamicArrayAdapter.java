@@ -73,6 +73,7 @@ public class AdapterDynamicArrayAdapter<T> extends ArrayAdapter<T> {
         //System.out.println("|----|------------|AdapterData|----|" + argPosition);
         return rowViewRoot;
     }
+
     /*if (isClicked) {
         if (position == selectedPosition) {
             //layout.setBackgroundColor(mContext.getResources().getColor(R.color.app_bg));

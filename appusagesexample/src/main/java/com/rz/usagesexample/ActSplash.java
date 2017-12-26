@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.rz.varnishview.spinallistdrawer.AdapterDynamicArrayAdapter;
 import com.rz.varnishview.spinallistdrawer.ModelDrawerList;
 import com.rz.varnishview.spinallistdrawer.SpinalListDrawerDrawTemp01;
+import com.rz.varnishview.spinallistdrawer.SpinalRowDrawerDraw;
 
 import java.util.ArrayList;
 
@@ -71,6 +73,7 @@ public class ActSplash extends AppCompatActivity {
         LinearLayout idLinLayMainContainerView = (LinearLayout) findViewById(R.id.idLinLayMainContainerView);
         new DrawerListViewSetUp().onSetModelItems().onSetAdapter();
         //|------------------------------------------------------------|
+        //|------------------------------------------------------------|
         spinalListDrawerDraw = new SpinalListDrawerDrawTemp01(activity, context);
         onSetupSpinalNavDrawer = spinalListDrawerDraw.new OnSetupSpinalNavDrawer();
         onSetupSpinalToolBar = spinalListDrawerDraw.new OnSetupSpinalToolBar();
@@ -81,8 +84,8 @@ public class ActSplash extends AppCompatActivity {
                 .setMainContLinearLayout(idLinLayMainContainerView);
         onSetupSpinalToolBar.onHideActionBar()
                 .onSetActionBar()
-                .onSetTitleText("Spinal Drawer")
                 .onShowHomeButton()
+                .onSetTitleText("Spinal Drawer")
                 .onSetTitleTextColor("#ffffff")
                 .onSetBackgroundColor("#80000000")
                 .onSetElevation(0);
@@ -97,8 +100,8 @@ public class ActSplash extends AppCompatActivity {
         }
         //adapterLstDrawer.setSelectedPosition(0, true, colorPrimaryDark);
         //|------------------------------------------------------------|
-        /*Intent intentRedirectWindow = new Intent(context, ActFlyOutContainerTest.class);
-        startActivity(intentRedirectWindow);*/
+        Intent intentRedirectWindow = new Intent(context, ActSpinalRowDrawerDraw.class);
+        startActivity(intentRedirectWindow);
         //|------------------------------------------------------------|
     }
 

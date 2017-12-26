@@ -273,15 +273,20 @@ public class SpinalListDrawerDrawTemp01 {
 }
 /*
 Legend
-SpinalLegendDrawerDraw
+SpinalRowDrawerDraw - Main
 Model Drawer Items
 - Abstract Class
 -- Class Name (Class.class Variable)
 -- Class Name Getter Setter
-1) ToolBar
-2) Drawer Menu Items
-3) Navigation Drawer
-4) Sliding Push Activity
+* ToolBar
+    *) ToolBar
+* Drawer Menu
+    *) Navigation Drawer
+    *) Drawer Menu Layout - Row Resource Id, Row View Model
+        * Row Items
+    *) Drawer Menu Items Click Handler
+* Sliding Push Activity
+    *) Sliding Push Activity
 slide activity push activity
 https://stackoverflow.com/questions/19577630/push-activity-on-the-right-when-open-drawer
 https://medium.com/@janishar.ali/navigation-drawer-android-example-8dfe38c66f59

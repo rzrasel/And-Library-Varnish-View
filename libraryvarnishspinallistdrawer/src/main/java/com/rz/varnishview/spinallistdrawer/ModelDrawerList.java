@@ -1,12 +1,15 @@
 package com.rz.varnishview.spinallistdrawer;
 
+import java.util.HashMap;
+
 /**
  * Created by Rz Rasel on 2017-12-21.
  */
 
 public class ModelDrawerList {
-    String title;
-    String description;
+    //ArrayList<Integer> arrlist = new ArrayList<Integer>(5); arrlist.add(40); arrlist.add(2,25);
+    private String title;
+    private String description;
 
     public ModelDrawerList() {
         //
