@@ -1,6 +1,7 @@
 package com.rz.varnishview.spinallistdrawer;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -171,7 +172,7 @@ public class SpinalRowDrawerDraw {
         //|USAGES: SpinalRowDrawerDraw.SpinalDrawerMenu spinalDrawerMenu = spinalRowDrawerDraw.new SpinalDrawerMenu();
         */
         private ArrayList<SharkModelRowScope> modelDrawerMenuDataItems = new ArrayList<SharkModelRowScope>();
-        ArrayList<SharkModelRowViewFields> rowViewFieldListItems = new ArrayList<SharkModelRowViewFields>();
+        private ArrayList<SharkModelRowViewFields> rowViewFieldListItems = new ArrayList<SharkModelRowViewFields>();
 
         public SpinalDrawerMenu onSetItemData(HashMap<String, String> argRowDataItems) {
             modelDrawerMenuDataItems.add(SharkModelRowScope.onGetSetRow(argRowDataItems, (String) null, SharkModelRowScope.LISTENER_TYPE.NONE));
@@ -241,7 +242,10 @@ public class SpinalRowDrawerDraw {
             }
         }
 
-        private void DisplayView(int position) {
+        private void onDisplayView(int position) {
+        }
+
+        private void onDisplayView(Fragment argFragment) {
         }
     }
 
