@@ -2,18 +2,26 @@ package com.rz.varnishview.spinallistdrawer;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,6 +40,9 @@ public class SpinalRowDrawerDraw {
     //|------------------------------------------------------------|
     private Activity activity;
     private Context context;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private ViewGroup frameLayoutParent;
+    private int gravity;
     public SpinalToolBar spinalToolBar = new SpinalToolBar();
     public SpinalDrawerMenu spinalDrawerMenu = new SpinalDrawerMenu();
 
@@ -39,6 +50,110 @@ public class SpinalRowDrawerDraw {
     public SpinalRowDrawerDraw(Activity argActivity, Context argContext) {
         this.activity = argActivity;
         this.context = argContext;
+    }
+
+    //|------------------------------------------------------------|
+    public SpinalRowDrawerDraw onSetFrameLayoutParent(ViewGroup argFrameLayoutParent) {
+        frameLayoutParent = argFrameLayoutParent;
+        return this;
+    }
+
+    public SpinalRowDrawerDraw onSetGravity(int argGravity) {
+        gravity = argGravity;
+        return this;
+    }
+
+    //|------------------------------------------------------------|
+    public SpinalRowDrawerDraw onConfigureDrawer() {
+        //|------------------------------------------------------------|
+        int drawerOpenStringId;
+        int drawerCloseStringId;
+        drawerOpenStringId = R.string.spinal_list_nav_drawer_open;
+        drawerCloseStringId = R.string.spinal_list_nav_drawer_close;
+        actionBarDrawerToggle = new ActionBarDrawerToggle(activity, spinalDrawerMenu.drawerLayout, drawerOpenStringId, drawerCloseStringId) {
+            /* Called when drawer is closed */
+            public void onDrawerClosed(View view) {
+                //Put your code here
+                activity.invalidateOptionsMenu();
+                //supportInvalidateOptionsMenu();
+            }
+
+            /* Called when a drawer is opened */
+            public void onDrawerOpened(View drawerView) {
+                //Put your code here
+                activity.invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onDrawerSlide(View argDrawerView, float argSlideOffset) {
+                super.onDrawerSlide(argDrawerView, argSlideOffset);
+                    /*mainView.setTranslationX(slideOffset * drawerView.getWidth());
+                    mDrawerLayout.bringChildToFront(drawerView);
+                    mDrawerLayout.requestLayout();*/
+                //
+                /*if (frameLayoutParent != null) {
+                    frameLayoutParent.setTranslationX(argSlideOffset * argDrawerView.getWidth());
+                    spinalDrawerMenu.drawerContainerLayout.bringChildToFront(argDrawerView);
+                    spinalDrawerMenu.drawerContainerLayout.requestLayout();
+                }*/
+                if (frameLayoutParent != null) {
+                    if (gravity == Gravity.RIGHT) {
+                        frameLayoutParent.setTranslationX(-1 * argSlideOffset * argDrawerView.getWidth());
+                        spinalDrawerMenu.drawerContainerLayout.bringChildToFront(argDrawerView);
+                        spinalDrawerMenu.drawerContainerLayout.requestLayout();
+                    } else {
+                        frameLayoutParent.setTranslationX(argSlideOffset * argDrawerView.getWidth());
+                        spinalDrawerMenu.drawerContainerLayout.bringChildToFront(argDrawerView);
+                        spinalDrawerMenu.drawerContainerLayout.requestLayout();
+                    }
+                }
+            }
+        };
+            /*sysToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sysDrawerLayout.openDrawer(GravityCompat.START);
+                }
+            });*/
+        actionBarDrawerToggle.syncState();
+        spinalDrawerMenu.drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        //|------------------------------------------------------------|
+        return this;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem argMenuItem) {
+        if (gravity == Gravity.RIGHT) {
+            if (spinalDrawerMenu.drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                spinalDrawerMenu.drawerLayout.closeDrawer(Gravity.RIGHT);
+            } else {
+                spinalDrawerMenu.drawerLayout.openDrawer(Gravity.RIGHT);
+            }
+        } else {
+            if (actionBarDrawerToggle.onOptionsItemSelected(argMenuItem)) {
+                return true;
+            }
+        }
+        /*switch (argMenuItem.getItemId()) {
+            case android.R.id.home:
+                sysDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }*/
+        /*switch (argMenuItem.getItemId()) {
+            case android.R.id.home:
+                if (sysDrawerLayout.isDrawerOpen(drawerList)) {
+                    sysDrawerLayout.closeDrawer(drawerList);
+                } else {
+                    sysDrawerLayout.openDrawer(drawerList);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(argMenuItem);
+        }*/
+        return false;
+    }
+
+    public void onConfigurationChanged(Configuration argNewConfig) {
+        actionBarDrawerToggle.onConfigurationChanged(argNewConfig);
     }
 
     //|------------------------------------------------------------|
@@ -160,7 +275,7 @@ public class SpinalRowDrawerDraw {
         public SpinalToolBar onSetNavigationOnClickListener(View.OnClickListener argOnClickListener) {
             if (spinalToolBar != null && argOnClickListener != null) {
                 spinalToolBar.setNavigationOnClickListener(argOnClickListener);
-                System.out.println("DEBUG");
+                //System.out.println("DEBUG");
             }
             return this;
         }
@@ -173,6 +288,9 @@ public class SpinalRowDrawerDraw {
         */
         private ArrayList<SharkModelRowScope> modelDrawerMenuDataItems = new ArrayList<SharkModelRowScope>();
         private ArrayList<SharkModelRowViewFields> rowViewFieldListItems = new ArrayList<SharkModelRowViewFields>();
+        private DrawerLayout drawerLayout;
+        private ViewGroup drawerContainerLayout;
+        private int frameLayResourceId;
 
         public SpinalDrawerMenu onSetItemData(HashMap<String, String> argRowDataItems) {
             modelDrawerMenuDataItems.add(SharkModelRowScope.onGetSetRow(argRowDataItems, (String) null, SharkModelRowScope.LISTENER_TYPE.NONE));
@@ -205,9 +323,22 @@ public class SpinalRowDrawerDraw {
             return rowViewFieldListItems;
         }
 
-        public void onSetAdapterListener(SharkArrayAdapter argSharkArrayAdapter) {
+        public SpinalDrawerMenu onSetAdapterListener(SharkArrayAdapter argSharkArrayAdapter) {
             argSharkArrayAdapter.onSetRowViewFieldList(rowViewFieldListItems)
                     .onSetRowViewFieldListenerHandler(onFieldListenerHandler);
+            return this;
+        }
+
+        public SpinalDrawerMenu onSetDrawerLayout(DrawerLayout argDrawerLayout, ViewGroup argDrawerContainerLayout, int argFrameLayResourceId) {
+            drawerLayout = argDrawerLayout;
+            drawerContainerLayout = argDrawerContainerLayout;
+            frameLayResourceId = argFrameLayResourceId;
+            return this;
+        }
+
+        public SpinalDrawerMenu onSetDefaultDrawerLayout(int argPosition) {
+            onDisplayView(argPosition);
+            return this;
         }
 
 
@@ -238,11 +369,29 @@ public class SpinalRowDrawerDraw {
         private class OnDrawerItemClickListener implements ListView.OnItemClickListener {
             @Override
             public void onItemClick(AdapterView<?> argParent, View argView, int argPosition, long argId) {
-                System.out.println("Position: " + modelDrawerMenuDataItems.get(argPosition).getHashMapRowIdValueItems().get("sysDrawerTitle"));
+                //System.out.println("Position: " + modelDrawerMenuDataItems.get(argPosition).getHashMapRowIdValueItems().get("sysDrawerTitle"));
+                onDisplayView(argPosition);
             }
         }
 
-        private void onDisplayView(int position) {
+        private void onDisplayView(int argPosition) {
+            if (modelDrawerMenuDataItems.size() <= 0) {
+                return;
+            }
+            Fragment fragment = null;
+            SharkModelRowScope sharkModelRowScope = modelDrawerMenuDataItems.get(argPosition);
+            Class fragmentClass = sharkModelRowScope.getListenerClass();
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+                FragmentTransaction fragmentTransaction = activity.getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(frameLayResourceId, fragment);
+                fragmentTransaction.commit();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            drawerLayout.closeDrawer(drawerContainerLayout);
         }
 
         private void onDisplayView(Fragment argFragment) {
