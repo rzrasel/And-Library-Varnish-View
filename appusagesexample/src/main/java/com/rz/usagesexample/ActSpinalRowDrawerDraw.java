@@ -46,7 +46,9 @@ public class ActSpinalRowDrawerDraw extends AppCompatActivity {
                 .onSetTitleText("Spinal Row Drawer")
                 .onSetTitleTextColor("#ffffff")
                 .onSetSubTitleText("Sub Title")
-                .onSetSubTitleTextColor("#ff0000")
+                .onSetSubTitleTextColor("#000000")
+                .onSetTitleFont("fonts/alex-brush-regular.ttf")
+                .onSetSubTitleFont("fonts/lobster-1.3.otf")
                 .onShowHomeButton()
                 .onSetStatusBarDark(false);
         /*sysToolBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -81,8 +83,10 @@ public class ActSpinalRowDrawerDraw extends AppCompatActivity {
                 .onSetDefaultDrawerLayout(0);
         sysDrawerList.setAdapter(adapterDrawerListAdapter);
         spinalRowDrawerDraw.spinalDrawerMenu.onSetDrawerItemClickListener(sysDrawerList);
-        spinalRowDrawerDraw.onSetFrameLayoutParent((LinearLayout) findViewById(R.id.idLinLayMainContainerView))
-                .onSetGravity(Gravity.LEFT)
+        /*spinalRowDrawerDraw.onSetFrameLayoutParent((LinearLayout) findViewById(R.id.idLinLayMainContainerView))
+                .onSetGravity(Gravity.RIGHT)
+                .onConfigureDrawer();*/
+        spinalRowDrawerDraw.onSetGravity(Gravity.RIGHT)
                 .onConfigureDrawer();
         //|------------------------------------------------------------|
         //|------------------------------------------------------------|
@@ -107,4 +111,14 @@ public class ActSpinalRowDrawerDraw extends AppCompatActivity {
         super.onConfigurationChanged(argNewConfig);
         spinalRowDrawerDraw.onConfigurationChanged(argNewConfig);
     }
+    //|------------------------------------------------------------|
+
+    @Override
+    public void onBackPressed() {
+        if (!spinalRowDrawerDraw.onSetBackPressed()) {
+            super.onBackPressed();
+        }
+    }
+
+    //|------------------------------------------------------------|
 }

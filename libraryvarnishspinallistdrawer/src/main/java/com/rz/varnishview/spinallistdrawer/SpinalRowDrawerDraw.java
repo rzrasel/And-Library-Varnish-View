@@ -7,8 +7,10 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -29,6 +31,7 @@ import com.rz.varnishview.spinallistdrawer.adapter.SharkArrayAdapter;
 import com.rz.varnishview.spinallistdrawer.adapter.SharkModelRowScope;
 import com.rz.varnishview.spinallistdrawer.adapter.SharkModelRowViewFields;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -156,6 +159,19 @@ public class SpinalRowDrawerDraw {
         actionBarDrawerToggle.onConfigurationChanged(argNewConfig);
     }
 
+    public boolean onSetBackPressed() {
+        if (spinalDrawerMenu.drawerLayout.isDrawerOpen(spinalDrawerMenu.drawerContainerLayout)) {
+            spinalDrawerMenu.drawerLayout.closeDrawer(spinalDrawerMenu.drawerContainerLayout);
+            return true;
+        }
+        /*if (spinalDrawerMenu.drawerLayout.isDrawerOpen(GravityCompat.END)) {
+            spinalDrawerMenu.drawerLayout.closeDrawer(GravityCompat.END);
+            System.out.println("");
+            return true;
+        }*/
+        return false;
+    }
+
     //|------------------------------------------------------------|
     //|------------------------------------------------------------|
     public class SpinalToolBar {
@@ -276,6 +292,47 @@ public class SpinalRowDrawerDraw {
             if (spinalToolBar != null && argOnClickListener != null) {
                 spinalToolBar.setNavigationOnClickListener(argOnClickListener);
                 //System.out.println("DEBUG");
+            }
+            return this;
+        }
+
+        public SpinalToolBar onSetTitleFont(String argAssetsFontPath) {
+            if (argAssetsFontPath.isEmpty()) {
+                return this;
+            }
+            if (spinalToolBar != null) {
+                TextView titleTextView = null;
+
+                try {
+                    Typeface typeface = Typeface.createFromAsset(activity.getAssets(), argAssetsFontPath);
+                    Field field = spinalToolBar.getClass().getDeclaredField("mTitleTextView");
+                    field.setAccessible(true);
+                    titleTextView = (TextView) field.get(spinalToolBar);
+                    //titleTextView.setText("titleTextView");
+                    titleTextView.setTypeface(typeface);
+                } catch (NoSuchFieldException e) {
+                } catch (IllegalAccessException e) {
+                }
+            }
+            return this;
+        }
+        public SpinalToolBar onSetSubTitleFont(String argAssetsFontPath) {
+            if (argAssetsFontPath.isEmpty()) {
+                return this;
+            }
+            if (spinalToolBar != null) {
+                TextView titleTextView = null;
+
+                try {
+                    Typeface typeface = Typeface.createFromAsset(activity.getAssets(), argAssetsFontPath);
+                    Field field = spinalToolBar.getClass().getDeclaredField("mSubtitleTextView");
+                    field.setAccessible(true);
+                    titleTextView = (TextView) field.get(spinalToolBar);
+                    //titleTextView.setText("titleTextView");
+                    titleTextView.setTypeface(typeface);
+                } catch (NoSuchFieldException e) {
+                } catch (IllegalAccessException e) {
+                }
             }
             return this;
         }
