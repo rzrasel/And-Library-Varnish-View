@@ -44,7 +44,7 @@
             android:id="@+id/sysIdDrawerContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="right|end"
+            android:layout_gravity="left|start"
             android:background="#ffffff"
             android:fitsSystemWindows="true">
             <!--android:layout_marginTop="?attr/actionBarSize"-->

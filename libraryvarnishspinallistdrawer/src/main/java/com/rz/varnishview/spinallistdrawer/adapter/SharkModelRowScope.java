@@ -22,7 +22,7 @@ public class SharkModelRowScope {
         this.listenerClass = null;
     }*/
 
-    public SharkModelRowScope(HashMap<String, String> argHashMapRowIdValueItems, Class argListenerClass, LISTENER_TYPE argListenerType) {
+    public SharkModelRowScope(HashMap<String, String> argHashMapRowIdValueItems, Class<?> argListenerClass, LISTENER_TYPE argListenerType) {
         this.hashMapRowIdValueItems = argHashMapRowIdValueItems;
         this.listenerClass = argListenerClass;
         this.listenerType = argListenerType;
@@ -46,7 +46,7 @@ public class SharkModelRowScope {
         return this.listenerClass;
     }
 
-    public void setListenerClass(Class argListenerClass) {
+    public void setListenerClass(Class<?> argListenerClass) {
         this.listenerClass = argListenerClass;
     }
 
@@ -69,6 +69,7 @@ public class SharkModelRowScope {
     public enum LISTENER_TYPE {
         CLASS("class_reference"),
         NONE("none"),
+        RESOURCE_ID("resource_id"),
         STRING("string_data"),
         URL("url_address");
         private String fieldType;
@@ -86,7 +87,7 @@ public class SharkModelRowScope {
         return new SharkModelRowScope(argHashMapRowIdValueItems);
     }*/
 
-    public static SharkModelRowScope onGetSetRow(HashMap<String, String> argHashMapRowIdValueItems, Class argListenerClass, LISTENER_TYPE argListenerType) {
+    public static SharkModelRowScope onGetSetRow(HashMap<String, String> argHashMapRowIdValueItems, Class<?> argListenerClass, LISTENER_TYPE argListenerType) {
         return new SharkModelRowScope(argHashMapRowIdValueItems, argListenerClass, argListenerType);
     }
 

@@ -39,56 +39,12 @@ public class ActSpinalRowDrawerDraw extends AppCompatActivity {
         activity = this;
         context = this;
         sysToolBar = (Toolbar) findViewById(R.id.sysToolBar);
-        spinalRowDrawerDraw = new SpinalRowDrawerDraw(activity, context);
-        spinalRowDrawerDraw.spinalToolBar.onHideActionBar()
-                .initToolBar(sysToolBar)
-                .onSetActionBar()
-                .onSetTitleText("Spinal Row Drawer")
-                .onSetTitleTextColor("#ffffff")
-                .onSetSubTitleText("Sub Title")
-                .onSetSubTitleTextColor("#000000")
-                .onSetTitleFont("fonts/alex-brush-regular.ttf")
-                .onSetSubTitleFont("fonts/lobster-1.3.otf")
-                .onShowHomeButton()
-                .onSetStatusBarDark(false);
-        /*sysToolBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View argView) {
-                System.out.println("DEBUG_ID: ");
-            }
-        });*/
         //|------------------------------------------------------------|
-        //|------------------------------------------------------------|
-        ListView sysDrawerList;
-        SharkArrayAdapter adapterDrawerListAdapter;
-        ArrayList<SharkModelRowViewFields> rowViewFieldListItems = new ArrayList<SharkModelRowViewFields>();
-        ArrayList<SharkModelRowScope> modelDrawerListItems = new ArrayList<SharkModelRowScope>();
-        sysDrawerList = (ListView) findViewById(R.id.sysDrawerList);
-        HashMap<String, String> eachRowDataItems = null;
-        eachRowDataItems = new HashMap();
-        eachRowDataItems.put("sysDrawerTitle", "Title-01");
-        eachRowDataItems.put("sysDrawerDescription", "Description-01");
-        spinalRowDrawerDraw.spinalDrawerMenu.onSetItemData(eachRowDataItems, FirstFragment.class);
-        eachRowDataItems = new HashMap();
-        eachRowDataItems.put("sysDrawerTitle", "Title-02");
-        eachRowDataItems.put("sysDrawerDescription", "Description-02");
-        spinalRowDrawerDraw.spinalDrawerMenu.onSetItemData(eachRowDataItems, SecondFragment.class);
-        modelDrawerListItems = spinalRowDrawerDraw.spinalDrawerMenu.onGetDataList();
-        spinalRowDrawerDraw.spinalDrawerMenu.onSetRowViewField(SpinalRowDrawerDraw.FIELD_TYPE.TEXT_VIEW, "sysDrawerTitle");
-        spinalRowDrawerDraw.spinalDrawerMenu.onSetRowViewField(SpinalRowDrawerDraw.FIELD_TYPE.TEXT_VIEW, "sysDrawerDescription");
-        //rowViewFieldListItems = spinalRowDrawerDraw.spinalDrawerMenu.onGetRowViewFieldsList();
-        adapterDrawerListAdapter = new SharkArrayAdapter(context, R.layout.layout_navigation_drawer_row, modelDrawerListItems);
-        spinalRowDrawerDraw.spinalDrawerMenu.onSetAdapterListener(adapterDrawerListAdapter)
-                .onSetDrawerLayout((DrawerLayout) findViewById(R.id.sysDrawerLayout), (RelativeLayout) findViewById(R.id.sysIdDrawerContainer), R.id.sysFrameContainer)
-                .onSetDefaultDrawerLayout(0);
-        sysDrawerList.setAdapter(adapterDrawerListAdapter);
-        spinalRowDrawerDraw.spinalDrawerMenu.onSetDrawerItemClickListener(sysDrawerList);
-        /*spinalRowDrawerDraw.onSetFrameLayoutParent((LinearLayout) findViewById(R.id.idLinLayMainContainerView))
-                .onSetGravity(Gravity.RIGHT)
-                .onConfigureDrawer();*/
-        spinalRowDrawerDraw.onSetGravity(Gravity.RIGHT)
-                .onConfigureDrawer();
-        //|------------------------------------------------------------|
+        new OnDrawerSetup(activity, context)
+                .onSetToolbar(sysToolBar)
+                .onSetDrawerMenuFields()
+                .onSetDrawerMenuItems()
+                .onSetDrawerAdapter(true, Gravity.LEFT);
         //|------------------------------------------------------------|
     }
 
@@ -120,5 +76,80 @@ public class ActSpinalRowDrawerDraw extends AppCompatActivity {
         }
     }
 
+    //|------------------------------------------------------------|
+    public class OnDrawerSetup {
+        private Activity activity;
+        private Context context;
+        //private SpinalRowDrawerDraw spinalRowDrawerDraw;
+        private ArrayList<SharkModelRowScope> modelDrawerListItems = new ArrayList<SharkModelRowScope>();
+
+        public OnDrawerSetup(Activity argActivity, Context argContext) {
+            this.activity = argActivity;
+            this.context = argContext;
+            spinalRowDrawerDraw = new SpinalRowDrawerDraw(activity, context);
+        }
+
+        public OnDrawerSetup onSetToolbar(Toolbar argToolbar) {
+            spinalRowDrawerDraw.spinalToolBar.onHideActionBar()
+                    .initToolBar(argToolbar)
+                    .onSetActionBar()
+                    .onSetTitleText("Spinal Row Drawer")
+                    .onSetTitleTextColor("#ffffff")
+                    .onSetSubTitleText("Sub Title Spinal Row Drawer")
+                    .onSetSubTitleTextColor("#ffffff")
+                    .onSetTitleFont("fonts/lobster-1.3.otf")
+                    .onSetSubTitleFont("fonts/alex-brush-regular.ttf")
+                    .onShowHomeButton()
+                    .onSetStatusBarDark(true);
+                    /*sysToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View argView) {
+                            System.out.println("DEBUG_ID: ");
+                        }
+                    });*/
+            return this;
+        }
+
+        public OnDrawerSetup onSetDrawerMenuFields() {
+            //ArrayList<SharkModelRowViewFields> rowViewFieldListItems = new ArrayList<SharkModelRowViewFields>();
+            spinalRowDrawerDraw.spinalDrawerMenu.onSetRowViewField(SpinalRowDrawerDraw.FIELD_TYPE.TEXT_VIEW, "sysDrawerTitle");
+            spinalRowDrawerDraw.spinalDrawerMenu.onSetRowViewField(SpinalRowDrawerDraw.FIELD_TYPE.TEXT_VIEW, "sysDrawerDescription");
+            return this;
+        }
+
+        public OnDrawerSetup onSetDrawerMenuItems() {
+            HashMap<String, String> eachRowDataItems = null;
+            eachRowDataItems = new HashMap();
+            eachRowDataItems.put("sysDrawerTitle", "Title-01");
+            eachRowDataItems.put("sysDrawerDescription", "Description-01");
+            spinalRowDrawerDraw.spinalDrawerMenu.onSetItemData(eachRowDataItems, FirstFragment.class);
+            eachRowDataItems = new HashMap();
+            eachRowDataItems.put("sysDrawerTitle", "Title-02");
+            eachRowDataItems.put("sysDrawerDescription", "Description-02");
+            spinalRowDrawerDraw.spinalDrawerMenu.onSetItemData(eachRowDataItems, SecondFragment.class);
+            modelDrawerListItems = spinalRowDrawerDraw.spinalDrawerMenu.onGetDataList();
+            return this;
+        }
+
+        public OnDrawerSetup onSetDrawerAdapter(boolean argIsPushActivity, int argGravity) {
+            SharkArrayAdapter adapterDrawerListAdapter;
+            ListView sysDrawerList = (ListView) findViewById(R.id.sysDrawerList);
+            adapterDrawerListAdapter = new SharkArrayAdapter(context, R.layout.layout_navigation_drawer_row, modelDrawerListItems);
+            spinalRowDrawerDraw.spinalDrawerMenu.onSetAdapterListener(adapterDrawerListAdapter)
+                    .onSetDrawerLayout((DrawerLayout) findViewById(R.id.sysDrawerLayout), (RelativeLayout) findViewById(R.id.sysIdDrawerContainer), R.id.sysFrameContainer)
+                    .onSetDefaultDrawerLayout(0);
+            sysDrawerList.setAdapter(adapterDrawerListAdapter);
+            spinalRowDrawerDraw.spinalDrawerMenu.onSetDrawerItemClickListener(sysDrawerList);
+            if (argIsPushActivity) {
+                spinalRowDrawerDraw.onSetFrameLayoutParent((LinearLayout) findViewById(R.id.idLinLayMainContainerView))
+                        .onSetGravity(argGravity)
+                        .onConfigureDrawer();
+            } else {
+                spinalRowDrawerDraw.onSetGravity(argGravity)
+                        .onConfigureDrawer();
+            }
+            return this;
+        }
+    }
     //|------------------------------------------------------------|
 }

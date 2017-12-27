@@ -316,6 +316,7 @@ public class SpinalRowDrawerDraw {
             }
             return this;
         }
+
         public SpinalToolBar onSetSubTitleFont(String argAssetsFontPath) {
             if (argAssetsFontPath.isEmpty()) {
                 return this;
@@ -449,6 +450,7 @@ public class SpinalRowDrawerDraw {
                 e.printStackTrace();
             }
             drawerLayout.closeDrawer(drawerContainerLayout);
+            activity.setTitle("Changed");
         }
 
         private void onDisplayView(Fragment argFragment) {
@@ -473,3 +475,6 @@ public class SpinalRowDrawerDraw {
     //|------------------------------------------------------------|
     //|------------------------------------------------------------|
 }
+/*
+Bundle Callback Interface
+*/
