@@ -9,7 +9,7 @@ git remote -v
 git fetch && git checkout And-Library-Varnish-View-Spinal-List-Drawer
 ```
 
-### GIT Command
+#### Release "AAR" File
 ```build_aar
 - Go to right panel > gradle
     - Go to > libraryvarnishspinallistdrawer
