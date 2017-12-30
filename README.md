@@ -12,6 +12,11 @@ git fetch && git checkout And-Library-Varnish-View-Spinal-List-Drawer
 #### Release "AAR" File
 ```build_aar
 - Go to right panel > gradle
+    - Go to > Project Main Tree
+    - Go to > build
+    - Click > assembleRelease
+Or
+- Go to right panel > gradle
     - Go to > libraryvarnishspinallistdrawer
     - Go to > build
     - Click > assembleRelease
