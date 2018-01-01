@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -373,6 +374,9 @@ public class SpinalRowDrawerDraw {
             if (argFieldType == FIELD_TYPE.TEXT_VIEW) {
                 TextView textView = new TextView(context);
                 rowViewFieldListItems.add(SharkModelRowViewFields.onGetSetModelRow(textView, argFieldResourceId));
+            } else if (argFieldType == FIELD_TYPE.IMAGE_VIEW) {
+                ImageView imageView = new ImageView(context);
+                rowViewFieldListItems.add(SharkModelRowViewFields.onGetSetModelRow(imageView, argFieldResourceId));
             }
             return this;
         }
@@ -413,6 +417,14 @@ public class SpinalRowDrawerDraw {
                         rowField = (TextView) itemField.getFieldObject();
                         if (hashMapRowIdValueItem.containsKey(fieldResourceId)) {
                             rowField.setText(hashMapRowIdValueItem.get(fieldResourceId));
+                        }
+                        System.out.println(itemField.getFieldResourceId());
+                    } else if (object instanceof ImageView) {
+                        ImageView rowField = null;
+                        rowField = (ImageView) itemField.getFieldObject();
+                        if (hashMapRowIdValueItem.containsKey(fieldResourceId)) {
+                            int resourceId = Integer.valueOf(hashMapRowIdValueItem.get(fieldResourceId));
+                            rowField.setImageDrawable(context.getResources().getDrawable(resourceId));
                         }
                         System.out.println(itemField.getFieldResourceId());
                     }

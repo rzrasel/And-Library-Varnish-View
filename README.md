@@ -24,7 +24,7 @@ Or
     - Go to > libraryvarnishspinallistdrawer (your-library-project)
     - Go to > build
     - Click > assembleRelease
-    - gradlew assemble
+    - Or (gradlew assemble)
 ```
 
 Library Project (AAR) Directory
