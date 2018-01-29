@@ -90,6 +90,7 @@ public class SharkArrayAdapter<T> extends ArrayAdapter<T> {
 
     public interface OnFieldListenerHandler {
         public void onSetFieldValue(ArrayList<SharkModelRowViewFields> argRowViewFieldList, Object argObject);
+        //public void onSetResourceLayout(int argLayoutResourceId);
         //Customer cust = (Customer) pObject;
     }
 }

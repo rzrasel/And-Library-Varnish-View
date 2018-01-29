@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ActFlyOutContainerTest" />
-        <activity android:name=".ActSpinalRowDrawerDraw"></activity>
+        <activity android:name=".ActSpinalRowDrawerDraw" />
+        <activity android:name=".ActJustList"></activity>
     </application>
 
 </manifest>

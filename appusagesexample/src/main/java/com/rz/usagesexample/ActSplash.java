@@ -102,6 +102,7 @@ public class ActSplash extends AppCompatActivity {
         //|------------------------------------------------------------|
         Intent intentRedirectWindow = new Intent(context, ActSpinalRowDrawerDraw.class);
         startActivity(intentRedirectWindow);
+        startActivity(new Intent(context, ActJustList.class));
         //|------------------------------------------------------------|
     }
 
